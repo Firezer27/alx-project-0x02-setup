@@ -1,31 +1,41 @@
-import Header from "@/components/layout/Header";
+// pages/home.tsx
+import React, { useState } from "react";
 import Card from "@/components/common/Card";
+import PostModal from "@/components/common/PostModal";
 
-export default function HomePage() {
+const HomePage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [posts, setPosts] = useState<{ title: string; content: string }[]>([]);
+
+  const addPost = (newPost: { title: string; content: string }) => {
+    setPosts((prev) => [...prev, newPost]);
+  };
+
   return (
-    <div>
-      <Header />
+    <div className="p-8">
+      <h1 className="text-3xl font-bold">Home Page</h1>
 
-      <main className="p-10">
-        <h1 className="text-3xl font-bold text-green-600 mb-8">Home Page</h1>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="mt-4 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
+      >
+        Add New Post
+      </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card
-            title="Reusable Card Component"
-            content="This is a dynamic card that receives props for title and content."
-          />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        {posts.map((post, index) => (
+          <Card key={index} title={post.title} content={post.content} />
+        ))}
+      </div>
 
-          <Card
-            title="Next.js + TypeScript"
-            content="We are learning how to build reusable components using TypeScript interfaces."
-          />
-
-          <Card
-            title="ALX Project"
-            content="This card is part of your Next.js project setup task."
-          />
-        </div>
-      </main>
+      <PostModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={addPost}
+      />
     </div>
   );
-}
+};
+
+export default HomePage;
