@@ -1,29 +1,14 @@
-// pages/posts.tsx
-import React, { useEffect, useState } from "react";
+
+import React from "react";
 import Header from "@/components/layout/Header";
 import PostCard from "@/components/common/PostCard";
 import { PostProps } from "@/interfaces";
 
-const PostsPage = () => {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+interface PostsPageProps {
+  posts: PostProps[];
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const data = await res.json();
-
-      const formatted = data.slice(0, 10).map((post: any) => ({
-        title: post.title,
-        content: post.body,
-        userId: post.userId,
-      }));
-
-      setPosts(formatted);
-    };
-
-    fetchPosts();
-  }, []);
-
+const PostsPage: React.FC<PostsPageProps> = ({ posts }) => {
   return (
     <div>
       <Header />
@@ -32,12 +17,12 @@ const PostsPage = () => {
         <h1 className="text-3xl font-bold mb-6">Posts Page</h1>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {posts.map((p, index) => (
+          {posts.map((post, index) => (
             <PostCard
               key={index}
-              title={p.title}
-              content={p.content}
-              userId={p.userId}
+              title={post.title}
+              content={post.content}
+              userId={post.userId}
             />
           ))}
         </div>
@@ -47,3 +32,21 @@ const PostsPage = () => {
 };
 
 export default PostsPage;
+
+
+export async function getStaticProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await res.json();
+
+  const formattedPosts = data.slice(0, 10).map((post: any) => ({
+    title: post.title,
+    content: post.body,
+    userId: post.userId,
+  }));
+
+  return {
+    props: {
+      posts: formattedPosts,
+    },
+  };
+}
