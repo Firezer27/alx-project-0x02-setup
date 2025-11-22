@@ -1,15 +1,21 @@
-import Header from "../components/layout/Header";
+// pages/about.tsx
+import React from "react";
+import Button from "@/components/common/Button";
 
-export default function AboutPage() {
+const AboutPage = () => {
   return (
-    <div>
-      <Header />
-      <main className="p-10">
-        <h1 className="text-3xl font-bold text-purple-600">About Page</h1>
-        <p className="mt-4 text-gray-700">
-          This page contains information about the project.
-        </p>
-      </main>
+    <div className="p-8">
+      <h1 className="text-3xl font-bold mb-6">About Page</h1>
+
+      <div className="flex gap-4">
+        <Button label="Small Button" size="small" shape="rounded-sm" />
+
+        <Button label="Medium Button" size="medium" shape="rounded-md" />
+
+        <Button label="Large Button" size="large" shape="rounded-full" />
+      </div>
     </div>
   );
-}
+};
+
+export default AboutPage;
