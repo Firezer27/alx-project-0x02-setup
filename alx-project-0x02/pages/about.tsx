@@ -1,18 +1,20 @@
-// pages/about.tsx
 import React from "react";
+import Header from "@/components/layout/Header";
 import Button from "@/components/common/Button";
 
 const AboutPage = () => {
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">About Page</h1>
+    <div>
+      <Header />
 
-      <div className="flex gap-4">
-        <Button label="Small Button" size="small" shape="rounded-sm" />
+      <div className="p-8">
+        <h1 className="text-3xl font-bold mb-6">About Page</h1>
 
-        <Button label="Medium Button" size="medium" shape="rounded-md" />
-
-        <Button label="Large Button" size="large" shape="rounded-full" />
+        <div className="flex gap-4">
+          <Button label="Small" size="small" shape="rounded-sm" />
+          <Button label="Medium" size="medium" shape="rounded-md" />
+          <Button label="Large" size="large" shape="rounded-full" />
+        </div>
       </div>
     </div>
   );
